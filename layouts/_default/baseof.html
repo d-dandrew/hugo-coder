@@ -24,7 +24,7 @@
     <link rel="stylesheet" href={{ .Site.Params.google_fonts_css_cdn }} integrity={{ .Site.Params.google_fonts_css_integrity}}>
     <link rel="stylesheet" href={{ .Site.Params.fontawesome_css_cdn }} integrity={{ .Site.Params.fontawesome_css_integrity }} crossorigin="anonymous" />
     <link rel="stylesheet" href={{ .Site.Params.normalize_css_cdn }} integrity={{ .Site.Params.normalize_css_integrity }} crossorigin="anonymous" />
-
+    {{ partial "posts/math" . }}
     {{ if .Site.IsServer }}
       {{ $cssOpts := (dict "targetPath" "css/coder.css" "enableSourceMap" true ) }}
       {{ $styles := resources.Get "scss/coder.scss" | resources.ExecuteAsTemplate "style.coder.css" . | toCSS $cssOpts }}

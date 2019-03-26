@@ -1,14 +1,15 @@
-{{- if .Params.math -}}
+{{- if .Params.mathjax -}}
   <script type="text/javascript" async
     src={{ .Site.Params.mathjax_js_cdn }} integrity={{ .Site.Params.mathjax_js_integrity }} crossorigin="anonymous">
     MathJax.Hub.Config({
       tex2jax: {
-        inlineMath: [['$','$']],
-        displayMath: [['$$','$$']],
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        displayMath: [['$$','$$'], ['\[','\]']],
         processEscapes: true,
         processEnvironments: true,
         skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-        TeX: { extensions: ["AMSmath.js", "AMSsymbols.js"] }
+        TeX: { equationNumbers: { autoNumber: "AMS" },
+            extensions: ["AMSmath.js", "AMSsymbols.js"] }
       }
     });
     MathJax.Hub.Queue(function() {
@@ -20,5 +21,21 @@
           all[i].SourceElement().parentNode.className += ' has-jax';
       }
     });
+  </script>
+{{- end -}}
+{{- if .Params.katex -}}
+  <link rel="stylesheet" href={{ .Site.Params.katex_css_cdn }} integrity={{ .Site.Params.katex_css_integrity }} crossorigin="anonymous">
+  <script defer src={{ .Site.Params.katex_js_cdn }} integrity={{ .Site.Params.katex_js_integrity }} crossorigin="anonymous"></script>
+  <script defer src={{ .Site.Params.katex_autorender_js_cdn }} integrity={{ .Site.Params.katex_autorender_js_integrity }} crossorigin="anonymous" 
+    onload="renderMathInElement(document.body,
+      {
+        delimiters: [
+          {left: '$$', right: '$$', display:true},
+          {left: '\[', right: '\]', display:true},
+          {left: '$', right: '$', display:false},
+          {left: '\\(', right: '\\)', display:false}
+        ]
+      }
+    )";>
   </script>
 {{- end -}}
